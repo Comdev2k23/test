@@ -8,7 +8,7 @@
     "scheme": "test",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": ["**/*"],
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
