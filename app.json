@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "test",
-    "slug": "test",
+    "name": "tcash",
+    "slug": "tcash",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/tcash.png",
     "scheme": "test",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,26 +13,26 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/tcash.png",
+        "backgroundColor": "#E8FFD7"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.comdev2k23.test"
+      "package": "com.comdev2k23.tcash"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/tcash.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/tcash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#E8FFD7"
         }
       ]
     ],
@@ -42,9 +42,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "c9a972e5-195d-424c-b48c-ba96db443fb7"
+        "projectId": "8918d92a-f6c1-4b05-bb2a-ba16e96987cd"
       }
     },
-    "owner": "comdev2k23"
+    "owner": "nachttv22"
   }
 }
