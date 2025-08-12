@@ -1,6 +1,6 @@
 import SafeScreen from '@/components/SafeScreen';
+import { tokenCache } from '@/utils/tokenCache'; // ✅ use your custom version
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import { tokenCache } from '@clerk/clerk-expo/token-cache';
 import Constants from 'expo-constants';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import '../global.css';
 
+// Keep splash screen visible until Clerk finishes loading
 SplashScreen.preventAutoHideAsync();
 
 function AuthGate({ children }: { children: React.ReactNode }) {
