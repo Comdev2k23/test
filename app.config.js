@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 export default {
   expo: {
-    name: "T-CASH",
-    slug: "tcash-rn",
+    name: "tcash",
+    slug: "tcash",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/tcash.png",
@@ -19,7 +19,7 @@ export default {
         backgroundColor: "#E8FFD7"
       },
       edgeToEdgeEnabled: true,
-      package: "com.comdev2k23.casht"
+      package: "com.comdev2k23.tcash"
     },
     web: {
       bundler: "metro",
@@ -44,7 +44,7 @@ export default {
     extra: {
       router: {},
       eas: {
-        projectId: "8918d92a-f6c1-4b05-bb2a-ba16e96987cd"
+        projectId: "9f2500e6-c388-4b54-8c2b-df5c8031a5bc"
       },
       clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
     },
