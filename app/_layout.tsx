@@ -14,7 +14,7 @@ export default function RootLayout() {
     async function prepare() {
       try {
         // ⏳ Load resources (fonts, API check, etc.)
-        await new Promise(resolve => setTimeout(resolve, 1500)); // fake delay
+        await new Promise(resolve => setTimeout(resolve, 40000)); // fake delay
       } catch (e) {
         console.warn(e);
       } finally {
