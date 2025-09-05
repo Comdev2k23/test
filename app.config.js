@@ -44,7 +44,7 @@ export default {
     extra: {
       router: {},
       eas: {
-        projectId: "9f2500e6-c388-4b54-8c2b-df5c8031a5bc"
+        projectId: "55c89899-76be-4b7a-b312-f6c3e710953c"
       },
     },
     owner: "nachttv22"
