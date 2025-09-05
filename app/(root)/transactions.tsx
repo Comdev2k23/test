@@ -1,12 +1,13 @@
-import { useUser } from '@clerk/clerk-expo';
+import { useUser } from '@/libs/useUser';
 import { FlashList } from '@shopify/flash-list';
 import axios from 'axios';
+import { useFocusEffect } from 'expo-router';
 import { Trash2Icon } from 'lucide-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 type Transaction = {
-  id: number,
+  id: number;
   refnumber: string;
   amount: number;
   created_at: string;
@@ -25,9 +26,7 @@ export default function Transactions() {
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      if (isNaN(date.getTime())) {
-        return dateString || 'No date';
-      }
+      if (isNaN(date.getTime())) return dateString || 'No date';
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
@@ -53,14 +52,18 @@ export default function Transactions() {
     }
   };
 
-  useEffect(() => {
-    if (userId) {
-      setIsLoading(true);
-      fetchData().finally(() => setIsLoading(false));
-    }
-  }, [userId]);
+  // 👇 Replace useEffect with useFocusEffect
+  useFocusEffect(
+    useCallback(() => {
+      if (userId) {
+        setIsLoading(true);
+        fetchData().finally(() => setIsLoading(false));
+      }
+    }, [userId])
+  );
 
-  useEffect(() => {
+  // Search filter
+  React.useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredTransactions(transactions);
     } else {
@@ -76,36 +79,34 @@ export default function Transactions() {
     const amountColor = isCashIn ? 'text-red-400' : 'text-[#5E936C]';
     const amountPrefix = isCashIn ? '-' : '+';
 
-
-  async function handleDelete (id:number) {
-     Alert.alert(
-    'Confirm Delete',
-    'Are you sure you want to delete this transaction?',
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            await axios.delete(`https://tcash-api.onrender.com/api/transactions/delete/${id}`);
-            Alert.alert('Deleted', 'Transaction has been deleted.');
-            fetchData(); // Refresh the list after deletion
-          } catch (error) {
-            Alert.alert('Error', 'Failed to delete transaction.');
-            console.log('Delete error:', error);
-          }
-        },
-      },
-    ]
-  );
-  }
+    async function handleDelete(id: number) {
+      Alert.alert(
+        'Confirm Delete',
+        'Are you sure you want to delete this transaction?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: async () => {
+              try {
+                await axios.delete(
+                  `https://tcash-api.onrender.com/api/transactions/delete/${id}`
+                );
+                Alert.alert('Deleted', 'Transaction has been deleted.');
+                fetchData(); // Refresh after deletion
+              } catch (error) {
+                Alert.alert('Error', 'Failed to delete transaction.');
+                console.log('Delete error:', error);
+              }
+            },
+          },
+        ]
+      );
+    }
 
     return (
-      <View className="p-4 mb-2 bg-white  rounded-lg shadow-sm mx-4 border border-gray-100">
+      <View className="p-4 mb-2 bg-white rounded-lg shadow-sm mx-4 border border-gray-100">
         <View className="flex-row justify-between items-center mb-1">
           <Text className="text-[#3E5F44] font-medium">Ref:</Text>
           <Text className="text-[#3E5F44] font-semibold">{item.refnumber}</Text>
@@ -121,11 +122,11 @@ export default function Transactions() {
           <Text className="text-[#5E936C]">{formatDate(item.created_at)}</Text>
         </View>
         <View className="mt-2 flex-row justify-between items-center">
-          <Text className={`text-xs font-medium ${isCashIn ?  'text-red-400' : 'text-[#5E936C]' }`}>
+          <Text className={`text-xs font-medium ${isCashIn ? 'text-red-400' : 'text-[#5E936C]'}`}>
             {isCashIn ? 'Cash In' : 'Cash Out'}
           </Text>
-          <TouchableOpacity onPress={()=> handleDelete(item.id)}>
-            <Trash2Icon color={'#3E5F44'} size={20}/>
+          <TouchableOpacity onPress={() => handleDelete(item.id)}>
+            <Trash2Icon color={'#3E5F44'} size={20} />
           </TouchableOpacity>
         </View>
       </View>
@@ -144,14 +145,14 @@ export default function Transactions() {
   return (
     <View className="flex-1 bg-[#E8FFD7]">
       <View className="p-4 shadow-sm">
-        <Text className="text-2xl font-bold text-[#3E5F44] mb-2"> Transactions</Text>
+        <Text className="text-2xl font-bold text-[#3E5F44] mb-2">Transactions</Text>
         <View className="relative">
           <TextInput
             className="bg-white rounded-lg p-3 pl-10 text-gray-800 border border-[#93DA97]"
             placeholder="Search by reference number..."
             value={searchQuery}
             onChangeText={setSearchQuery}
-            keyboardType='numeric'
+            keyboardType="numeric"
           />
           <View className="absolute left-3 top-3">
             <Text className="text-gray-400">🔍</Text>
@@ -162,8 +163,7 @@ export default function Transactions() {
       {filteredTransactions.length === 0 ? (
         <View className="flex-1 items-center justify-center">
           {searchQuery ? (
-            <Text className="text-gray-500">Transaction not yet claimed  </Text>
-            
+            <Text className="text-gray-500">Transaction not yet claimed</Text>
           ) : (
             <Text className="text-gray-500">No transactions found</Text>
           )}

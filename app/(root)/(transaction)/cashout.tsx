@@ -1,4 +1,4 @@
-import { useUser } from '@clerk/clerk-expo'
+import { useUser } from '@/libs/useUser'
 import { Ionicons } from '@expo/vector-icons'
 import axios from 'axios'
 import { useRouter } from 'expo-router'

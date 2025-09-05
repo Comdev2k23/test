@@ -1,5 +1,4 @@
-import { SignOutButton } from '@/components/SignOutButton';
-import { SignedIn, useUser } from '@clerk/clerk-expo';
+import { useUser } from '@/libs/useUser';
 import axios from 'axios';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react-native';
@@ -24,7 +23,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
 
   const userId = user?.id;
-  const username = user?.emailAddresses?.[0]?.emailAddress.split('@')[0] || 'User';
+  const username = user?.email?.split('@')[0] || 'User';
 
   const greeting = (() => {
     const hour = new Date().getHours();
@@ -117,7 +116,6 @@ export default function Page() {
       className="bg-[#E8FFD7]"
     >
       <View className="flex-1 p-6">
-        <SignedIn>
           {/* Header Card */}
           <View className="flex-row items-center justify-between bg-white p-4 rounded-2xl shadow mb-6">
             <View className="border-2 border-emerald-400 rounded-full p-0.5">
@@ -131,10 +129,6 @@ export default function Page() {
               <Text className="text-lg font-semibold text-gray-800">Hi, {username}!</Text>
               <Text className="text-sm text-emerald-600">Good {greeting}!</Text>
             </View>
-
-            <TouchableOpacity className="bg-emerald-100 p-2 rounded-full">
-              <SignOutButton />
-            </TouchableOpacity>
           </View>
 
           <View className='flex bg-white mb-6 p-2 rounded-lg shadow'>
@@ -186,7 +180,6 @@ export default function Page() {
               </View>
             )}
           </View>
-        </SignedIn>
       </View>
     </ScrollView>
   );

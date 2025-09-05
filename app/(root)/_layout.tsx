@@ -1,13 +1,7 @@
-import { useUser } from "@clerk/clerk-expo";
-import { Redirect, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { CircleUserRound, FileClock, House, NotebookPen } from 'lucide-react-native';
 
 export default function Layout() {
-    const {isSignedIn, isLoaded} = useUser()
-
-    if(!isLoaded) return null
-
-    if(!isSignedIn) return <Redirect href={"/sign-in"}/>
 
 
   return (

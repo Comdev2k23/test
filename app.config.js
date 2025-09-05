@@ -46,7 +46,6 @@ export default {
       eas: {
         projectId: "9f2500e6-c388-4b54-8c2b-df5c8031a5bc"
       },
-      clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
     },
     owner: "nachttv22"
   }
